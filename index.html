@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Nick!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #faf9f7;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+            cursor: url("assets/nicholascutout-cursor.png") 16 16, auto;
+        }
+
+        .container {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .subheading {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .instructions {
+            font-size: 0.95rem;
+            color: #888;
+            margin-bottom: 20px;
+        }
+
+        .nick-container {
+            position: fixed;
+            pointer-events: none;
+            transition: none;
+        }
+
+        .nick-svg {
+            pointer-events: none;
+        }
+
+        .gift-card {
+            pointer-events: auto;
+            cursor: pointer;
+        }
+
+        .roast-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            border: 2px solid #333;
+            padding: 25px 35px;
+            border-radius: 10px;
+            max-width: 420px;
+            text-align: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+            z-index: 100;
+        }
+
+        .roast-message.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .roast-message h2 {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .roast-message p {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .gift-link-container {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 100;
+        }
+
+        .gift-link-container.visible {
+            opacity: 1;
+        }
+
+        .gift-link {
+            color: #333;
+            font-size: 1.1rem;
+            text-decoration: underline;
+        }
+
+        .gift-link:hover {
+            color: #000;
+        }
+
+        .attempt-counter {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        /* Balloon float animation */
+        @keyframes floatBalloon1 {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+        @keyframes floatBalloon2 {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+        @keyframes floatBalloon3 {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-2px); }
+        }
+
+        .balloon1 { animation: floatBalloon1 1.2s ease-in-out infinite; }
+        .balloon2 { animation: floatBalloon2 1s ease-in-out infinite 0.2s; }
+        .balloon3 { animation: floatBalloon3 1.4s ease-in-out infinite 0.4s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>happy birthday nicholas</h1>
+        <p class="instructions">click the gift card to claim your present...</p>
+    </div>
+
+    <div class="attempt-counter">
+        attempts: <span id="attempts">0</span>
+    </div>
+
+    <div class="nick-container" id="nick">
+        <svg class="nick-svg" width="160" height="200" viewBox="0 0 160 200">
+            <!-- Balloons -->
+            <g class="balloons">
+                <!-- Balloon strings -->
+                <path d="M30 120 Q25 80 20 50" stroke="#333" stroke-width="1" fill="none"/>
+                <path d="M30 120 Q30 75 30 45" stroke="#333" stroke-width="1" fill="none"/>
+                <path d="M30 120 Q35 80 40 50" stroke="#333" stroke-width="1" fill="none"/>
+
+                <!-- Red balloon -->
+                <g class="balloon1">
+                    <ellipse cx="20" cy="35" rx="15" ry="18" fill="#e74c3c"/>
+                    <polygon points="20,53 17,58 23,58" fill="#e74c3c"/>
+                </g>
+
+                <!-- Blue balloon -->
+                <g class="balloon2">
+                    <ellipse cx="30" cy="30" rx="15" ry="18" fill="#3498db"/>
+                    <polygon points="30,48 27,53 33,53" fill="#3498db"/>
+                </g>
+
+                <!-- Yellow balloon -->
+                <g class="balloon3">
+                    <ellipse cx="40" cy="38" rx="15" ry="18" fill="#f1c40f"/>
+                    <polygon points="40,56 37,61 43,61" fill="#f1c40f"/>
+                </g>
+            </g>
+
+            <!-- Stick Figure -->
+            <g class="stick-figure">
+                <!-- Head -->
+                <circle cx="80" cy="85" r="15" stroke="#333" stroke-width="3" fill="#faf9f7"/>
+
+                <!-- Eyes -->
+                <circle cx="75" cy="82" r="2" fill="#333"/>
+                <circle cx="85" cy="82" r="2" fill="#333"/>
+
+                <!-- Smile -->
+                <path d="M75 90 Q80 95 85 90" stroke="#333" stroke-width="2" fill="none"/>
+
+                <!-- Body -->
+                <line x1="80" y1="100" x2="80" y2="145" stroke="#333" stroke-width="3"/>
+
+                <!-- Left arm (holding balloons) -->
+                <line x1="80" y1="110" x2="30" y2="120" stroke="#333" stroke-width="3"/>
+
+                <!-- Right arm (holding gift card) -->
+                <line x1="80" y1="110" x2="130" y2="100" stroke="#333" stroke-width="3"/>
+
+                <!-- Legs - animated via JS -->
+                <line id="legLeft" x1="80" y1="145" x2="65" y2="185" stroke="#333" stroke-width="3"/>
+                <line id="legRight" x1="80" y1="145" x2="95" y2="185" stroke="#333" stroke-width="3"/>
+            </g>
+
+            <!-- Chipotle Gift Card -->
+            <g class="gift-card" id="giftCard">
+                <rect x="110" y="75" width="50" height="32" rx="3" fill="#8B0000"/>
+                <rect x="113" y="78" width="44" height="26" rx="2" fill="#A52A2A"/>
+                <text x="135" y="92" font-size="8" fill="#fff" text-anchor="middle" font-weight="bold">CHIPOTLE</text>
+                <text x="135" y="101" font-size="5" fill="#ddd" text-anchor="middle">GIFT CARD</text>
+            </g>
+        </svg>
+    </div>
+
+    <div class="roast-message" id="roastMessage">
+        <h2>gotta be quicker than that!</h2>
+        <p>at 32, those reflexes just aren't what they used to be ;)</p>
+    </div>
+
+    <div class="gift-link-container" id="giftLinkContainer">
+        <a href="gift.html" class="gift-link" id="giftLink">okay fine. here's your chipotle gift card.</a>
+    </div>
+
+    <script>
+        // Configuration
+        const ATTEMPTS_TO_TRIGGER_ROAST = 5;
+        const SECONDS_TO_AUTO_REVEAL = 15;
+        const EVASION_DISTANCE = 200;  // How close mouse needs to be before Nick runs
+        const EVASION_SPEED = 12;      // How fast Nick runs away
+        const MARGIN = 20;             // Keep Nick this far from edges
+
+        // State
+        let attempts = 0;
+        let roastTriggered = false;
+        let startTime = null;
+        let nickX = window.innerWidth / 2 - 80;
+        let nickY = window.innerHeight / 2 - 100;
+        let mouseX = -1000;
+        let mouseY = -1000;
+        let lastMouseX = -1000;
+        let lastMouseY = -1000;
+        let isMouseMoving = false;
+        let mouseStopTimeout = null;
+        let legPhase = 0;
+        let isRunning = false;
+
+        // Elements
+        const nick = document.getElementById('nick');
+        const giftCard = document.getElementById('giftCard');
+        const attemptsDisplay = document.getElementById('attempts');
+        const roastMessage = document.getElementById('roastMessage');
+        const giftLinkContainer = document.getElementById('giftLinkContainer');
+        const legLeft = document.getElementById('legLeft');
+        const legRight = document.getElementById('legRight');
+
+        // Initialize position
+        nick.style.left = nickX + 'px';
+        nick.style.top = nickY + 'px';
+
+        // Track mouse movement
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            // Check if mouse actually moved
+            if (Math.abs(mouseX - lastMouseX) > 2 || Math.abs(mouseY - lastMouseY) > 2) {
+                isMouseMoving = true;
+                lastMouseX = mouseX;
+                lastMouseY = mouseY;
+
+                // Start timer if not started
+                if (!startTime && !roastTriggered) {
+                    startTime = Date.now();
+                }
+
+                // Clear existing timeout
+                if (mouseStopTimeout) {
+                    clearTimeout(mouseStopTimeout);
+                }
+
+                // Set timeout to detect when mouse stops
+                mouseStopTimeout = setTimeout(() => {
+                    isMouseMoving = false;
+                }, 50);
+            }
+        });
+
+        // Track touch for mobile
+        document.addEventListener('touchmove', (e) => {
+            const touch = e.touches[0];
+            mouseX = touch.clientX;
+            mouseY = touch.clientY;
+            isMouseMoving = true;
+
+            if (!startTime && !roastTriggered) {
+                startTime = Date.now();
+            }
+
+            if (mouseStopTimeout) clearTimeout(mouseStopTimeout);
+            mouseStopTimeout = setTimeout(() => {
+                isMouseMoving = false;
+            }, 50);
+        });
+
+        // Track clicks
+        document.addEventListener('click', (e) => {
+            if (roastTriggered) return;
+
+            // Start timer on first interaction
+            if (!startTime) {
+                startTime = Date.now();
+            }
+
+            attempts++;
+            attemptsDisplay.textContent = attempts;
+
+            if (attempts >= ATTEMPTS_TO_TRIGGER_ROAST) {
+                triggerRoast();
+            }
+        });
+
+        // Handle gift card click (should be impossible, but just in case)
+        giftCard.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (!roastTriggered) {
+                attempts++;
+                attemptsDisplay.textContent = attempts;
+                triggerRoast();
+            }
+        });
+
+        function triggerRoast() {
+            if (roastTriggered) return;
+            roastTriggered = true;
+
+            roastMessage.classList.add('visible');
+
+            setTimeout(() => {
+                giftLinkContainer.classList.add('visible');
+            }, 2000);
+        }
+
+        function checkAutoReveal() {
+            if (roastTriggered || !startTime) return;
+
+            const elapsed = (Date.now() - startTime) / 1000;
+            if (elapsed >= SECONDS_TO_AUTO_REVEAL) {
+                triggerRoast();
+            }
+        }
+
+        // Update leg positions for walking animation
+        function updateLegs(running) {
+            if (running) {
+                legPhase += 0.3;
+                const swing = Math.sin(legPhase) * 20;
+
+                // Left leg
+                const leftFootX = 80 - 15 + swing;
+                const leftFootY = 185;
+                legLeft.setAttribute('x2', leftFootX);
+                legLeft.setAttribute('y2', leftFootY);
+
+                // Right leg (opposite phase)
+                const rightFootX = 80 + 15 - swing;
+                const rightFootY = 185;
+                legRight.setAttribute('x2', rightFootX);
+                legRight.setAttribute('y2', rightFootY);
+            } else {
+                // Standing still - legs in neutral position
+                legLeft.setAttribute('x2', 65);
+                legLeft.setAttribute('y2', 185);
+                legRight.setAttribute('x2', 95);
+                legRight.setAttribute('y2', 185);
+            }
+        }
+
+        // Main animation loop
+        function animate() {
+            if (!roastTriggered) {
+                // Calculate distance from mouse to Nick's center
+                const nickCenterX = nickX + 80;
+                const nickCenterY = nickY + 100;
+                const dx = nickCenterX - mouseX;
+                const dy = nickCenterY - mouseY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                // Only move if mouse is moving and close enough
+                if (isMouseMoving && distance < EVASION_DISTANCE) {
+                    isRunning = true;
+
+                    // Normalize direction and move away from mouse
+                    const normalizedDx = dx / distance;
+                    const normalizedDy = dy / distance;
+
+                    // Calculate speed based on how close mouse is (closer = faster)
+                    const speedMultiplier = 1 + (1 - distance / EVASION_DISTANCE) * 2;
+                    const actualSpeed = EVASION_SPEED * speedMultiplier;
+
+                    // Move Nick away from mouse
+                    let newX = nickX + normalizedDx * actualSpeed;
+                    let newY = nickY + normalizedDy * actualSpeed;
+
+                    // Keep within bounds
+                    const maxX = window.innerWidth - 160 - MARGIN;
+                    const maxY = window.innerHeight - 200 - MARGIN;
+
+                    // If hitting a wall, try to slide along it
+                    if (newX < MARGIN || newX > maxX) {
+                        // Can't go horizontally, try going more vertically
+                        newX = Math.max(MARGIN, Math.min(maxX, newX));
+                        newY = nickY + (normalizedDy > 0 ? 1 : -1) * actualSpeed * 1.5;
+                    }
+                    if (newY < MARGIN || newY > maxY) {
+                        // Can't go vertically, try going more horizontally
+                        newY = Math.max(MARGIN, Math.min(maxY, newY));
+                        newX = nickX + (normalizedDx > 0 ? 1 : -1) * actualSpeed * 1.5;
+                    }
+
+                    // Final bounds check
+                    newX = Math.max(MARGIN, Math.min(maxX, newX));
+                    newY = Math.max(MARGIN, Math.min(maxY, newY));
+
+                    // If cornered, teleport to opposite side
+                    const cornerThreshold = 50;
+                    const mouseToNewDist = Math.sqrt(
+                        Math.pow(newX + 80 - mouseX, 2) +
+                        Math.pow(newY + 100 - mouseY, 2)
+                    );
+
+                    if (mouseToNewDist < cornerThreshold) {
+                        // Teleport to the farthest corner from mouse
+                        const corners = [
+                            { x: MARGIN, y: MARGIN },
+                            { x: maxX, y: MARGIN },
+                            { x: MARGIN, y: maxY },
+                            { x: maxX, y: maxY }
+                        ];
+
+                        let farthestCorner = corners[0];
+                        let maxDist = 0;
+
+                        for (const corner of corners) {
+                            const d = Math.sqrt(
+                                Math.pow(corner.x + 80 - mouseX, 2) +
+                                Math.pow(corner.y + 100 - mouseY, 2)
+                            );
+                            if (d > maxDist) {
+                                maxDist = d;
+                                farthestCorner = corner;
+                            }
+                        }
+
+                        newX = farthestCorner.x;
+                        newY = farthestCorner.y;
+                    }
+
+                    nickX = newX;
+                    nickY = newY;
+                } else {
+                    isRunning = false;
+                }
+
+                // Update position
+                nick.style.left = nickX + 'px';
+                nick.style.top = nickY + 'px';
+
+                // Update leg animation
+                updateLegs(isRunning);
+
+                // Check auto-reveal
+                checkAutoReveal();
+            } else {
+                // Still animate legs standing when roast is triggered
+                updateLegs(false);
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        // Start animation
+        animate();
+    </script>
+</body>
+</html>

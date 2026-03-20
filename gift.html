@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Nicholas!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #faf9f7;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .text-container {
+            text-align: center;
+            margin-bottom: 20px;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .subheading {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        .nick-container {
+            z-index: 10;
+        }
+
+        /* Confetti */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            top: -10px;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(720deg);
+            }
+        }
+
+        /* Balloon float animation */
+        @keyframes floatBalloon1 {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+        @keyframes floatBalloon2 {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+        @keyframes floatBalloon3 {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-2px); }
+        }
+
+        .balloon1 { animation: floatBalloon1 1.2s ease-in-out infinite; }
+        .balloon2 { animation: floatBalloon2 1s ease-in-out infinite 0.2s; }
+        .balloon3 { animation: floatBalloon3 1.4s ease-in-out infinite 0.4s; }
+    </style>
+</head>
+<body>
+    <div class="confetti-container" id="confettiContainer"></div>
+
+    <div class="text-container">
+        <h1>happy birthday :)</h1>
+        <p class="subheading">your gift card will be sent to your email at 12pm. be patient, old man.</p>
+    </div>
+
+    <div class="nick-container">
+        <svg width="280" height="360" viewBox="0 0 280 360">
+            <!-- Stick Figure Body (behind head) -->
+            <g class="stick-figure-body">
+                <!-- Body -->
+                <line x1="140" y1="170" x2="140" y2="260" stroke="#333" stroke-width="4"/>
+
+                <!-- Left arm (holding balloons) -->
+                <line x1="140" y1="190" x2="50" y2="200" stroke="#333" stroke-width="4"/>
+
+                <!-- Right arm (holding gift card) -->
+                <line x1="140" y1="190" x2="220" y2="170" stroke="#333" stroke-width="4"/>
+
+                <!-- Legs -->
+                <line x1="140" y1="260" x2="110" y2="340" stroke="#333" stroke-width="4"/>
+                <line x1="140" y1="260" x2="170" y2="340" stroke="#333" stroke-width="4"/>
+            </g>
+
+            <!-- Nicholas head (image) - on top of body -->
+            <image
+                href="assets/nicholascutout.png"
+                x="70" y="10"
+                width="160" height="180"
+                preserveAspectRatio="xMidYMid meet"
+                transform="rotate(-15, 150, 100)"
+            />
+
+            <!-- Chipotle Gift Card -->
+            <g class="gift-card">
+                <rect x="200" y="145" width="60" height="38" rx="4" fill="#8B0000"/>
+                <rect x="203" y="148" width="54" height="32" rx="3" fill="#A52A2A"/>
+                <text x="230" y="165" font-size="9" fill="#fff" text-anchor="middle" font-weight="bold">CHIPOTLE</text>
+                <text x="230" y="176" font-size="6" fill="#ddd" text-anchor="middle">GIFT CARD</text>
+            </g>
+
+            <!-- Balloons (in front of everything) -->
+            <g class="balloons">
+                <!-- Balloon strings -->
+                <path d="M50 200 Q45 140 40 90" stroke="#333" stroke-width="1.5" fill="none"/>
+                <path d="M50 200 Q50 130 50 80" stroke="#333" stroke-width="1.5" fill="none"/>
+                <path d="M50 200 Q55 140 60 90" stroke="#333" stroke-width="1.5" fill="none"/>
+
+                <!-- Red balloon -->
+                <g class="balloon1">
+                    <ellipse cx="40" cy="60" rx="25" ry="30" fill="#e74c3c"/>
+                    <polygon points="40,90 35,98 45,98" fill="#e74c3c"/>
+                </g>
+
+                <!-- Blue balloon -->
+                <g class="balloon2">
+                    <ellipse cx="50" cy="50" rx="25" ry="30" fill="#3498db"/>
+                    <polygon points="50,80 45,88 55,88" fill="#3498db"/>
+                </g>
+
+                <!-- Yellow balloon -->
+                <g class="balloon3">
+                    <ellipse cx="65" cy="65" rx="25" ry="30" fill="#f1c40f"/>
+                    <polygon points="65,95 60,103 70,103" fill="#f1c40f"/>
+                </g>
+            </g>
+        </svg>
+    </div>
+
+    <script>
+        // Confetti colors
+        const colors = ['#e74c3c', '#3498db', '#f1c40f', '#2ecc71', '#9b59b6', '#e67e22', '#1abc9c'];
+        const shapes = ['square', 'rectangle', 'circle'];
+
+        function createConfetti() {
+            const container = document.getElementById('confettiContainer');
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+
+            // Random properties
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            const shape = shapes[Math.floor(Math.random() * shapes.length)];
+            const left = Math.random() * 100;
+            const size = Math.random() * 8 + 6;
+            const duration = Math.random() * 3 + 2;
+            const delay = Math.random() * -5;
+
+            confetti.style.left = left + '%';
+            confetti.style.width = shape === 'rectangle' ? size * 0.5 + 'px' : size + 'px';
+            confetti.style.height = size + 'px';
+            confetti.style.backgroundColor = color;
+            confetti.style.borderRadius = shape === 'circle' ? '50%' : '2px';
+            confetti.style.animationDuration = duration + 's';
+            confetti.style.animationDelay = delay + 's';
+
+            container.appendChild(confetti);
+
+            // Remove and recreate after animation
+            setTimeout(() => {
+                confetti.remove();
+                createConfetti();
+            }, (duration + delay) * 1000 + 100);
+        }
+
+        // Create initial confetti
+        for (let i = 0; i < 50; i++) {
+            setTimeout(() => createConfetti(), i * 100);
+        }
+    </script>
+</body>
+</html>
